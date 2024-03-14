@@ -9,7 +9,7 @@ function Home() {
     <div>
       <div> <Navbar/></div>
       <div><Carousel/></div>
-      <div className='m-3 d-flex'>
+      <div className=''>
       <Card/>
       <Card/>
       <Card/>
