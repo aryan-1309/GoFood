@@ -7,7 +7,13 @@ const mongoDB = async () => {
 
         const fetched_data = await mongoose.connection.db.collection("food_items")
         const data = await fetched_data.find({}).toArray()
-        // console.log(data)
+
+        const fetched_catData = await mongoose.connection.db.collection("foodCategory")
+        const catData = await fetched_catData.find({}).toArray()
+
+        global.foodCategory = catData
+        global.food_items = data
+
     } catch (error) {
         console.error('Error while fetching data of food_items collection:', error.message)
     }

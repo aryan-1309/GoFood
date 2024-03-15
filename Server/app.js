@@ -16,6 +16,8 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api',require("./Routes/userRoutes"))
+app.use('/api',require("./Routes/foodDataRoute"))
+
 
 app.listen(process.env.PORT,()=>{
     console.log(`Backend Server Is Running on PORT ${process.env.PORT}`)
