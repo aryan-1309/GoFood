@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { LogOut } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -8,6 +11,10 @@ const Navbar = () => {
     localStorage.removeItem('token');
     navigate('/');
   };
+
+  //subscri bing to the store by useSelector hook
+  const cartItems = useSelector((store) => store.cart.items)
+  console.log(cartItems)
 
   return (
     <div>
@@ -45,8 +52,8 @@ const Navbar = () => {
                 </div>
                 :
                 <div className="d-flex">
-                  <Link className="btn bg-white text-success mx-1" to="/cart">My Cart</Link>
-                  <button className="btn bg-white text-danger mx-1" onClick={handleLogout}>Logout</button>
+                  <Link className="btn bg-white text-success mx-1" to="/cart"><ShoppingCart/> <sup>{cartItems.length}</sup></Link>
+                  <button className="btn bg-white text-danger mx-1" onClick={handleLogout}><LogOut/></button>
                 </div>
             }
           </div>

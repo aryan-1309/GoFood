@@ -70,7 +70,7 @@ function Home() {
                 <hr />
                 {foodItem !== [] ? foodItem.filter((item) => (item.CategoryName === data.CategoryName) && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))).map(filterItems => {
                   return (
-                    <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'><Card foodName={filterItems.name} options={filterItems.options[0]} imgsrc={filterItems.img}></Card></div>
+                    <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'><Card fooditems={filterItems}></Card></div>
                   )
                 }) : <div>No Usch Data Found</div>}
               </div>
