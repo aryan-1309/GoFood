@@ -12,6 +12,7 @@ const Login = () => {
           const res = await axios.post('http://localhost:5000/api/login',values)
           if(res.data.success){
             localStorage.setItem("token",res.data.token)
+            // localStorage.setItem("user_Email", res.data.email)
             message.success("Login Successfully!")
             navigate('/')
           }

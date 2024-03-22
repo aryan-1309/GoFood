@@ -4,8 +4,12 @@ import Footer from '../components/Footer'
 import Card from '../components/Card'
 // import Carousel from '../components/Carousel'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../utils/userSlice'
 
 function Home() {
+
+  const dispatch = useDispatch()
 
   const [search, setSearch] = useState('')
   const [foodCat, setFoodCat] = useState([])
@@ -22,8 +26,23 @@ function Home() {
     }
   };
 
+  const getUserData = async () => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/getUserData', {}, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem('token')
+        }
+      })
+
+      dispatch(setUser(res))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     loadData()
+    getUserData()
   }, [])
 
   return (

@@ -17,6 +17,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api',require("./Routes/userRoutes"))
 app.use('/api',require("./Routes/foodDataRoute"))
+app.use('/api',require("./Routes/orderDataRoute"))
 
 
 app.listen(process.env.PORT,()=>{
