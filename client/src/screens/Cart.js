@@ -1,12 +1,17 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { useSelector, useDispatch} from 'react-redux'
 import { removeItem,clearCart } from '../utils/cartSlice'
 import { Trash2 } from 'lucide-react';
+import axios from 'axios';
+import { message } from 'antd';
 
 function Cart() {
-
+    
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     let cartItems = useSelector((store) => store.cart.items)
+    let user = useSelector((store)=> store.user.user)
 
     if (cartItems.length === 0) {
         return (
@@ -27,6 +32,25 @@ function Cart() {
 
     const handleClearAll = () => {
         dispatch(clearCart())
+    }
+
+    const handleCheckOut = async (req, res) => { 
+        try {
+            let userEmail = user.data.data.email
+            let data = {
+                email : userEmail,
+                order_data: cartItems,
+                order_date: new Date().toString()
+            }
+            res = axios.post('http://localhost:5000/api/orderData', data) 
+            dispatch(clearCart())
+            navigate('/')
+
+            message.success(`CheckOut Successfull!`)
+        } catch (error) {
+            console.log(error)
+            res.send({message: `Handle checkout error`})  
+        }
     }
 
     return (
@@ -66,13 +90,11 @@ function Cart() {
                         </div>
                         <div>
                             <button className='btn bg-danger mt-5 ml-2' onClick={handleClearAll}>Clear All</button>
-                            <button className='btn bg-success mt-5 px-4' style={{ marginLeft: '40px'}}>Check Out</button>
+                            <button className='btn bg-success mt-5 px-4' style={{ marginLeft: '40px'}} onClick={handleCheckOut}>Check Out</button>
                         </div>
                     </div>
 
-
                 </div>
-
             </div>
         </div>
     )
