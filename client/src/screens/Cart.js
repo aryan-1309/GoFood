@@ -5,6 +5,7 @@ import { removeItem,clearCart } from '../utils/cartSlice'
 import { Trash2 } from 'lucide-react';
 import axios from 'axios';
 import { message } from 'antd';
+import StripeCheckout from 'react-stripe-checkout';
 
 function Cart() {
     
@@ -90,7 +91,19 @@ function Cart() {
                         </div>
                         <div>
                             <button className='btn bg-danger mt-5 ml-2' onClick={handleClearAll}>Clear All</button>
+                            <StripeCheckout
+                                stripeKey={"pk_test_51PbHWXFjAScFsYZp0CKDbNhrDx6NQQb4N5A4K5RgJlpgFFEhcGi8mHnIS1eCaq3BHf5UbS6L6DS3FScjd0ZW70Ny00XO08wa4C"}
+                                token={handleCheckOut}
+                                amount={totalPrice * 100}
+                                currency="INR"
+                                name="Food Ordering App"
+                                email={user.data.data.email}
+                                billingAddress
+                                shippingAddress
+                                zipCode
+                            >
                             <button className='btn bg-success mt-5 px-4' style={{ marginLeft: '40px'}} onClick={handleCheckOut}>Check Out</button>
+                            </StripeCheckout>
                         </div>
                     </div>
 
